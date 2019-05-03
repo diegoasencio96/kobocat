@@ -18,6 +18,11 @@ import sys  # nopep8, used by included files
 from django.core.exceptions import SuspiciousOperation
 from pymongo import MongoClient
 
+
+from django.utils.translation import get_language_info
+
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 ONADATA_DIR = BASE_DIR
 PROJECT_ROOT = os.path.abspath(os.path.join(ONADATA_DIR, '..'))
@@ -43,11 +48,17 @@ DEFAULT_SESSION_EXPIRY_TIME = 21600  # 6 hours
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/New_York'
+TIME_ZONE = 'America/Bogota'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co'
+
+LANGUAGES = [
+    (lang_code, get_language_info(lang_code)['name_local'])
+        for lang_code in os.environ.get(
+            'DJANGO_LANGUAGE_CODES', 'es').split(' ')
+]
 
 ugettext = lambda s: s
 
